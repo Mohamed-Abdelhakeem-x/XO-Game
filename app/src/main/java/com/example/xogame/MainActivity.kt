@@ -11,8 +11,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // The NavHostFragment from the activity_main.xml layout handles all navigation.
-        // No further setup is needed in the MainActivity.
     }
 }
