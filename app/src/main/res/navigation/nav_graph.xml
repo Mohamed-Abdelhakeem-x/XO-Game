@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/menuFragment">
+
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.xogame.ui.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_playerSelectionFragment"
+            app:destination="@id/playerSelectionFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_howToPlayFragment"
+            app:destination="@id/howToPlayFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_scoreboardFragment"
+            app:destination="@id/scoreboardFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playerSelectionFragment"
+        android:name="com.example.xogame.ui.PlayerSelectionFragment"
+        android:label="fragment_player_selection"
+        tools:layout="@layout/fragment_player_selection" >
+        <action
+            android:id="@+id/action_playerSelectionFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.xogame.ui.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game" >
+        <argument
+            android:name="startPlayer"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_gameFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/howToPlayFragment"
+        android:name="com.example.xogame.ui.HowToPlayFragment"
+        android:label="fragment_how_to_play"
+        tools:layout="@layout/fragment_how_to_play" />
+
+    <fragment
+        android:id="@+id/scoreboardFragment"
+        android:name="com.example.xogame.ui.ScoreboardFragment"
+        android:label="fragment_scoreboard"
+        tools:layout="@layout/fragment_scoreboard" />
+
+</navigation>
