@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="noir_background">#1A1A1A</color>
-    <color name="neon_green_accent">#39FF14</color>
-    <color name="noir_text">#E0E0E0</color>
-    <color name="x_magenta">#FF00FF</color>
-    <color name="o_cyan">#00FFFF</color>
+    <color name="ocean_deep_blue_bg">#0D1B2A</color>
+    <color name="ocean_bright_blue_accent">#005792</color>
+    <color name="ocean_text_light">#E0E1DD</color>
+    <color name="x_marker_orange">#FF8C00</color>
+    <color name="o_marker_green">#98FB98</color>
 </resources>

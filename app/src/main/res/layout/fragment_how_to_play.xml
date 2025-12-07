@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/noir_background"
+    android:background="@color/ocean_deep_blue_bg"
     android:padding="16dp"
     tools:context=".ui.HowToPlayFragment">
 
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="How to Play"
-        android:textColor="@color/noir_text"
+        android:textColor="@color/ocean_text_light"
         android:textSize="32sp"
         android:layout_centerHorizontal="true"/>
 
@@ -22,8 +22,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/how_to_play_title"
         android:layout_marginTop="16dp"
-        android:text="1. The game is played on a grid that's 3 squares by 3 squares.\n\n2. You are X, your friend is O. Players take turns putting their marks in empty squares.\n\n3. The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.\n\n4. When all 9 squares are full, the game is over. If no player has 3 marks in a row, the game ends in a tie."
-        android:textColor="@color/noir_text"
+        android:text="The objective is simple: be the first to align three of your marks in a horizontal, vertical, or diagonal row. Take turns placing your mark (either X or O) in an empty square on the 3x3 grid. The first to achieve a line of three wins the round. If the entire grid is filled and no one has won, the round is a draw."
+        android:textColor="@color/ocean_text_light"
         android:textSize="18sp" />
 
     <Button
@@ -34,6 +34,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Back"
-        android:backgroundTint="@color/neon_green_accent"/>
+        android:backgroundTint="@color/ocean_bright_blue_accent"/>
 
 </RelativeLayout>

@@ -31,29 +31,29 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.assignStartingPlayer(args.startPlayer)
+        viewModel.setInitialPlayer(args.startPlayer)
 
-        viewModel.gridState.observe(viewLifecycleOwner) { grid ->
-            updateGridUI(grid)
+        viewModel.gameState.observe(viewLifecycleOwner) { gameState ->
+            updateGameUI(gameState)
         }
 
-        viewModel.roundScoreX.observe(viewLifecycleOwner) { score ->
+        viewModel.p1RoundScore.observe(viewLifecycleOwner) { score ->
             binding.player1Score.text = "Player 1 (X): $score"
         }
 
-        viewModel.roundScoreO.observe(viewLifecycleOwner) { score ->
+        viewModel.p2RoundScore.observe(viewLifecycleOwner) { score ->
             binding.player2Score.text = "Player 2 (O): $score"
         }
 
-        viewModel.activeTurn.observe(viewLifecycleOwner) { player ->
+        viewModel.activePlayerSymbol.observe(viewLifecycleOwner) { player ->
             binding.turnText.text = "Current Turn: $player"
         }
 
-        viewModel.roundOutcome.observe(viewLifecycleOwner) { outcome ->
-            if (outcome?.isNotEmpty() == true) {
+        viewModel.roundResult.observe(viewLifecycleOwner) { result ->
+            if (result?.isNotEmpty() == true) {
                 binding.winnerText.visibility = View.VISIBLE
                 binding.playAgainButton.visibility = View.VISIBLE
-                binding.winnerText.text = if (outcome == "Tie") "It's a tie!" else "Player $outcome wins!"
+                binding.winnerText.text = if (result == "Tie") "It's a tie!" else "Player $result wins!"
             } else {
                 binding.winnerText.visibility = View.GONE
                 binding.playAgainButton.visibility = View.GONE
@@ -61,11 +61,11 @@ class GameFragment : Fragment() {
         }
 
         binding.playAgainButton.setOnClickListener {
-            viewModel.initiateNextRound()
+            viewModel.advanceToNextRound()
         }
 
         binding.newGameButton.setOnClickListener {
-            viewModel.startNewGameSession()
+            viewModel.resetScoreboardAndStartNewGame()
         }
 
         binding.exitGameButton.setOnClickListener {
@@ -80,24 +80,24 @@ class GameFragment : Fragment() {
 
         gridCells.forEachIndexed { index, button ->
             button.setOnClickListener {
-                viewModel.handleCellSelection(index)
+                viewModel.registerPlayerInput(index)
             }
         }
     }
 
-    private fun updateGridUI(grid: List<String>) {
+    private fun updateGameUI(gameState: List<String>) {
         val gridCells = listOf(
             binding.cell1, binding.cell2, binding.cell3,
             binding.cell4, binding.cell5, binding.cell6,
             binding.cell7, binding.cell8, binding.cell9
         )
-        grid.forEachIndexed { index, cellValue ->
+        gameState.forEachIndexed { index, cellValue ->
             val button = gridCells[index]
             button.text = cellValue
             when(cellValue){
-                "X" -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.x_magenta))
-                "O" -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.o_cyan))
-                else -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.noir_background))
+                "X" -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.x_marker_orange))
+                "O" -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.o_marker_green))
+                else -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.ocean_deep_blue_bg))
             }
         }
     }

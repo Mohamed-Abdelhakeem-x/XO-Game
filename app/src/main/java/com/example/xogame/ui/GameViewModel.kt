@@ -5,81 +5,81 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
-    private val _gridState = MutableLiveData(List(9) { "" })
-    val gridState: LiveData<List<String>> = _gridState
+    private val _gameState = MutableLiveData(List(9) { "" })
+    val gameState: LiveData<List<String>> = _gameState
 
-    private val _activeTurn = MutableLiveData("X")
-    val activeTurn: LiveData<String> = _activeTurn
+    private val _activePlayerSymbol = MutableLiveData("X")
+    val activePlayerSymbol: LiveData<String> = _activePlayerSymbol
 
-    private val _roundScoreX = MutableLiveData(0)
-    val roundScoreX: LiveData<Int> = _roundScoreX
+    private val _p1RoundScore = MutableLiveData(0)
+    val p1RoundScore: LiveData<Int> = _p1RoundScore
 
-    private val _roundScoreO = MutableLiveData(0)
-    val roundScoreO: LiveData<Int> = _roundScoreO
+    private val _p2RoundScore = MutableLiveData(0)
+    val p2RoundScore: LiveData<Int> = _p2RoundScore
 
-    private val _totalScoreX = MutableLiveData(0)
-    val totalScoreX: LiveData<Int> = _totalScoreX
+    private val _p1TotalWins = MutableLiveData(0)
+    val p1TotalWins: LiveData<Int> = _p1TotalWins
 
-    private val _totalScoreO = MutableLiveData(0)
-    val totalScoreO: LiveData<Int> = _totalScoreO
+    private val _p2TotalWins = MutableLiveData(0)
+    val p2TotalWins: LiveData<Int> = _p2TotalWins
 
-    private val _roundOutcome = MutableLiveData("")
-    val roundOutcome: LiveData<String> = _roundOutcome
+    private val _roundResult = MutableLiveData("")
+    val roundResult: LiveData<String> = _roundResult
 
-    private var previousVictor: String? = null
+    private var previousRoundWinner: String? = null
 
-    fun handleCellSelection(selectedIndex: Int) {
-        if (_gridState.value?.get(selectedIndex).isNullOrEmpty() && _roundOutcome.value.isNullOrEmpty()) {
-            val updatedGrid = _gridState.value!!.toMutableList()
-            updatedGrid[selectedIndex] = _activeTurn.value!!
-            _gridState.value = updatedGrid
-            evaluateBoardState()
-            _activeTurn.value = if (_activeTurn.value == "X") "O" else "X"
+    fun registerPlayerInput(gridPosition: Int) {
+        if (_gameState.value?.get(gridPosition).isNullOrEmpty() && _roundResult.value.isNullOrEmpty()) {
+            val newGameState = _gameState.value!!.toMutableList()
+            newGameState[gridPosition] = _activePlayerSymbol.value!!
+            _gameState.value = newGameState
+            calculateRoundResult()
+            _activePlayerSymbol.value = if (_activePlayerSymbol.value == "X") "O" else "X"
         }
     }
 
-    private fun evaluateBoardState() {
-        val victoryPaths = listOf(
+    private fun calculateRoundResult() {
+        val winningPaths = listOf(
             listOf(0, 1, 2), listOf(3, 4, 5), listOf(6, 7, 8), // rows
             listOf(0, 3, 6), listOf(1, 4, 7), listOf(2, 5, 8), // columns
             listOf(0, 4, 8), listOf(2, 4, 6) // diagonals
         )
-        for (path in victoryPaths) {
+        for (path in winningPaths) {
             val (a, b, c) = path
-            if (_gridState.value!![a].isNotEmpty() && _gridState.value!![a] == _gridState.value!![b] && _gridState.value!![a] == _gridState.value!![c]) {
-                _roundOutcome.value = _gridState.value!![a]
-                previousVictor = _roundOutcome.value
-                if (_roundOutcome.value == "X") {
-                    _roundScoreX.value = (_roundScoreX.value ?: 0) + 1
+            if (_gameState.value!![a].isNotEmpty() && _gameState.value!![a] == _gameState.value!![b] && _gameState.value!![a] == _gameState.value!![c]) {
+                _roundResult.value = _gameState.value!![a]
+                previousRoundWinner = _roundResult.value
+                if (_roundResult.value == "X") {
+                    _p1RoundScore.value = (_p1RoundScore.value ?: 0) + 1
                 } else {
-                    _roundScoreO.value = (_roundScoreO.value ?: 0) + 1
+                    _p2RoundScore.value = (_p2RoundScore.value ?: 0) + 1
                 }
                 return
             }
         }
-        if (_gridState.value!!.all { it.isNotEmpty() }) {
-            _roundOutcome.value = "Tie"
-            previousVictor = null
+        if (_gameState.value!!.all { it.isNotEmpty() }) {
+            _roundResult.value = "Tie"
+            previousRoundWinner = null
         }
     }
 
-    fun initiateNextRound() {
-        _gridState.value = List(9) { "" }
-        _roundOutcome.value = ""
-        _activeTurn.value = previousVictor ?: "X"
+    fun advanceToNextRound() {
+        _gameState.value = List(9) { "" }
+        _roundResult.value = ""
+        _activePlayerSymbol.value = previousRoundWinner ?: "X"
     }
 
-    fun startNewGameSession(){
-        _totalScoreX.value = (_totalScoreX.value ?: 0) + (_roundScoreX.value ?: 0)
-        _totalScoreO.value = (_totalScoreO.value ?: 0) + (_roundScoreO.value ?: 0)
-        _roundScoreX.value = 0
-        _roundScoreO.value = 0
-        initiateNextRound()
-        previousVictor = null
+    fun resetScoreboardAndStartNewGame(){
+        _p1TotalWins.value = (_p1TotalWins.value ?: 0) + (_p1RoundScore.value ?: 0)
+        _p2TotalWins.value = (_p2TotalWins.value ?: 0) + (_p2RoundScore.value ?: 0)
+        _p1RoundScore.value = 0
+        _p2RoundScore.value = 0
+        advanceToNextRound()
+        previousRoundWinner = null
     }
 
-    fun assignStartingPlayer(player: String) {
-        _activeTurn.value = player
-        previousVictor = null
+    fun setInitialPlayer(player: String) {
+        _activePlayerSymbol.value = player
+        previousRoundWinner = null
     }
 }
