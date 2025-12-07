@@ -29,11 +29,11 @@ class ScoreboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.totalPlayer1Score.observe(viewLifecycleOwner) { score ->
+        viewModel.seriesP1Wins.observe(viewLifecycleOwner) { score ->
             binding.player1Score.text = "Player 1 (X): $score"
         }
 
-        viewModel.totalPlayer2Score.observe(viewLifecycleOwner) { score ->
+        viewModel.seriesP2Wins.observe(viewLifecycleOwner) { score ->
             binding.player2Score.text = "Player 2 (O): $score"
         }
 

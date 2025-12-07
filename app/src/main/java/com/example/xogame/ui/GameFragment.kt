@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -33,25 +34,26 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.setStartingPlayer(args.startPlayer)
+        // Corrected the method name from setStartingPlayer to setFirstTurn
+        viewModel.setFirstTurn(args.startPlayer)
 
-        viewModel.board.observe(viewLifecycleOwner) { board ->
+        viewModel.gameGrid.observe(viewLifecycleOwner) { board ->
             updateBoard(board)
         }
 
-        viewModel.sessionPlayer1Score.observe(viewLifecycleOwner) { score ->
+        viewModel.matchP1Score.observe(viewLifecycleOwner) { score ->
             binding.player1Score.text = "Player 1 (X): $score"
         }
 
-        viewModel.sessionPlayer2Score.observe(viewLifecycleOwner) { score ->
+        viewModel.matchP2Score.observe(viewLifecycleOwner) { score ->
             binding.player2Score.text = "Player 2 (O): $score"
         }
 
-        viewModel.currentPlayer.observe(viewLifecycleOwner) { player ->
+        viewModel.turnPlayer.observe(viewLifecycleOwner) { player ->
             binding.turnText.text = "Current Turn: $player"
         }
 
-        viewModel.winner.observe(viewLifecycleOwner) { winner ->
+        viewModel.matchResult.observe(viewLifecycleOwner) { winner ->
             if (winner?.isNotEmpty() == true) {
                 binding.winnerText.visibility = View.VISIBLE
                 binding.playAgainButton.visibility = View.VISIBLE
@@ -63,11 +65,11 @@ class GameFragment : Fragment() {
         }
 
         binding.playAgainButton.setOnClickListener {
-            viewModel.resetGame()
+            viewModel.startNextMatch()
         }
 
         binding.newGameButton.setOnClickListener {
-            viewModel.newGame()
+            viewModel.resetSeries()
         }
 
         binding.exitGameButton.setOnClickListener {
@@ -82,7 +84,7 @@ class GameFragment : Fragment() {
 
         boardButtons.forEachIndexed { index, button ->
             button.setOnClickListener {
-                viewModel.onCellClicked(index)
+                viewModel.placeMarker(index)
             }
         }
     }
@@ -97,9 +99,9 @@ class GameFragment : Fragment() {
             val button = boardButtons[index]
             button.text = cellValue
             when(cellValue){
-                "X" -> button.setTextColor(resources.getColor(android.R.color.holo_red_dark, null))
-                "O" -> button.setTextColor(resources.getColor(android.R.color.holo_blue_dark, null))
-                else -> button.setTextColor(resources.getColor(android.R.color.black, null))
+                "X" -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.x_marker_gold))
+                "O" -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.o_marker_silver))
+                else -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.forest_dark_green_bg))
             }
         }
     }
