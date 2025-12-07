@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="ocean_deep_blue_bg">#0D1B2A</color>
+    <color name="ocean_bright_blue_accent">#005792</color>
+    <color name="ocean_text_light">#E0E1DD</color>
+    <color name="x_marker_orange">#FF8C00</color>
+    <color name="o_marker_green">#98FB98</color>
 </resources>
