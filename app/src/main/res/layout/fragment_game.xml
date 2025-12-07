@@ -48,8 +48,8 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:background="@android:color/black">
+        android:background="@android:color/black"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,6 +63,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
                 android:textSize="48sp" />
 
             <View
@@ -76,6 +78,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
                 android:textSize="48sp" />
 
             <View
@@ -89,6 +93,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
                 android:textSize="48sp" />
         </LinearLayout>
 
@@ -109,6 +115,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
                 android:textSize="48sp" />
 
             <View
@@ -122,6 +130,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
                 android:textSize="48sp" />
 
             <View
@@ -135,6 +145,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
                 android:textSize="48sp" />
         </LinearLayout>
 
@@ -155,6 +167,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
                 android:textSize="48sp" />
 
             <View
@@ -168,7 +182,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android.textSize="48sp" />
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
+                android:textSize="48sp" />
 
             <View
                 android:layout_width="2dp"
@@ -181,6 +197,8 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:includeFontPadding="false"
+                android:textAllCaps="false"
                 android:textSize="48sp" />
         </LinearLayout>
     </LinearLayout>
@@ -203,9 +221,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/winner_text"
         android:layout_centerHorizontal="true"
+        android:backgroundTint="@android:color/holo_red_dark"
         android:text="Play Again"
-        android:visibility="gone"
-        android:backgroundTint="@android:color/holo_red_dark" />
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -219,16 +237,16 @@
             android:id="@+id/new_game_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Game"
-            android:backgroundTint="@android:color/holo_red_dark" />
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="New Game" />
 
         <Button
             android:id="@+id/exit_game_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="Exit Game"
-            android:backgroundTint="@android:color/holo_red_dark" />
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="Exit Game" />
     </LinearLayout>
 
 </RelativeLayout>
