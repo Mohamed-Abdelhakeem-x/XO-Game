@@ -5,81 +5,81 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class GameViewModel : ViewModel() {
-    private val _board = MutableLiveData(List(9) { "" })
-    val board: LiveData<List<String>> = _board
+    private val _gameGrid = MutableLiveData(List(9) { "" })
+    val gameGrid: LiveData<List<String>> = _gameGrid
 
-    private val _currentPlayer = MutableLiveData("X")
-    val currentPlayer: LiveData<String> = _currentPlayer
+    private val _turnPlayer = MutableLiveData("X")
+    val turnPlayer: LiveData<String> = _turnPlayer
 
-    private val _sessionPlayer1Score = MutableLiveData(0)
-    val sessionPlayer1Score: LiveData<Int> = _sessionPlayer1Score
+    private val _matchP1Score = MutableLiveData(0)
+    val matchP1Score: LiveData<Int> = _matchP1Score
 
-    private val _sessionPlayer2Score = MutableLiveData(0)
-    val sessionPlayer2Score: LiveData<Int> = _sessionPlayer2Score
+    private val _matchP2Score = MutableLiveData(0)
+    val matchP2Score: LiveData<Int> = _matchP2Score
 
-    private val _totalPlayer1Score = MutableLiveData(0)
-    val totalPlayer1Score: LiveData<Int> = _totalPlayer1Score
+    private val _seriesP1Wins = MutableLiveData(0)
+    val seriesP1Wins: LiveData<Int> = _seriesP1Wins
 
-    private val _totalPlayer2Score = MutableLiveData(0)
-    val totalPlayer2Score: LiveData<Int> = _totalPlayer2Score
+    private val _seriesP2Wins = MutableLiveData(0)
+    val seriesP2Wins: LiveData<Int> = _seriesP2Wins
 
-    private val _winner = MutableLiveData("")
-    val winner: LiveData<String> = _winner
+    private val _matchResult = MutableLiveData("")
+    val matchResult: LiveData<String> = _matchResult
 
-    private var lastWinner: String? = null
+    private var lastMatchWinner: String? = null
 
-    fun onCellClicked(index: Int) {
-        if (_board.value?.get(index).isNullOrEmpty() && _winner.value.isNullOrEmpty()) {
-            val newBoard = _board.value!!.toMutableList()
-            newBoard[index] = _currentPlayer.value!!
-            _board.value = newBoard
-            checkWinner()
-            _currentPlayer.value = if (_currentPlayer.value == "X") "O" else "X"
+    fun placeMarker(gridIndex: Int) {
+        if (_gameGrid.value?.get(gridIndex).isNullOrEmpty() && _matchResult.value.isNullOrEmpty()) {
+            val newGrid = _gameGrid.value!!.toMutableList()
+            newGrid[gridIndex] = _turnPlayer.value!!
+            _gameGrid.value = newGrid
+            evaluateMatch()
+            _turnPlayer.value = if (_turnPlayer.value == "X") "O" else "X"
         }
     }
 
-    private fun checkWinner() {
-        val lines = listOf(
+    private fun evaluateMatch() {
+        val winPatterns = listOf(
             listOf(0, 1, 2), listOf(3, 4, 5), listOf(6, 7, 8), // rows
             listOf(0, 3, 6), listOf(1, 4, 7), listOf(2, 5, 8), // columns
             listOf(0, 4, 8), listOf(2, 4, 6) // diagonals
         )
-        for (line in lines) {
-            val (a, b, c) = line
-            if (_board.value!![a].isNotEmpty() && _board.value!![a] == _board.value!![b] && _board.value!![a] == _board.value!![c]) {
-                _winner.value = _board.value!![a]
-                lastWinner = _winner.value
-                if (_winner.value == "X") {
-                    _sessionPlayer1Score.value = (_sessionPlayer1Score.value ?: 0) + 1
+        for (pattern in winPatterns) {
+            val (pos1, pos2, pos3) = pattern
+            if (_gameGrid.value!![pos1].isNotEmpty() && _gameGrid.value!![pos1] == _gameGrid.value!![pos2] && _gameGrid.value!![pos1] == _gameGrid.value!![pos3]) {
+                _matchResult.value = _gameGrid.value!![pos1]
+                lastMatchWinner = _matchResult.value
+                if (_matchResult.value == "X") {
+                    _matchP1Score.value = (_matchP1Score.value ?: 0) + 1
                 } else {
-                    _sessionPlayer2Score.value = (_sessionPlayer2Score.value ?: 0) + 1
+                    _matchP2Score.value = (_matchP2Score.value ?: 0) + 1
                 }
                 return
             }
         }
-        if (_board.value!!.all { it.isNotEmpty() }) {
-            _winner.value = "Tie"
-            lastWinner = null
+        if (_gameGrid.value!!.all { it.isNotEmpty() }) {
+            _matchResult.value = "Tie"
+            lastMatchWinner = null
         }
     }
 
-    fun resetGame() {
-        _board.value = List(9) { "" }
-        _winner.value = ""
-        _currentPlayer.value = lastWinner ?: "X"
+    fun startNextMatch() {
+        _gameGrid.value = List(9) { "" }
+        _matchResult.value = ""
+        _turnPlayer.value = lastMatchWinner ?: "X"
     }
 
-    fun newGame(){
-        _totalPlayer1Score.value = (_totalPlayer1Score.value ?: 0) + (_sessionPlayer1Score.value ?: 0)
-        _totalPlayer2Score.value = (_totalPlayer2Score.value ?: 0) + (_sessionPlayer2Score.value ?: 0)
-        _sessionPlayer1Score.value = 0
-        _sessionPlayer2Score.value = 0
-        resetGame()
-        lastWinner = null
+    fun resetSeries(){
+        _seriesP1Wins.value = (_seriesP1Wins.value ?: 0) + (_matchP1Score.value ?: 0)
+        _seriesP2Wins.value = (_seriesP2Wins.value ?: 0) + (_matchP2Score.value ?: 0)
+        _matchP1Score.value = 0
+        _matchP2Score.value = 0
+        startNextMatch()
+        lastMatchWinner = null
     }
 
-    fun setStartingPlayer(player: String) {
-        _currentPlayer.value = player
-        lastWinner = null
+    fun setFirstTurn(player: String) {
+        _turnPlayer.value = player
+        lastMatchWinner = null
     }
 }

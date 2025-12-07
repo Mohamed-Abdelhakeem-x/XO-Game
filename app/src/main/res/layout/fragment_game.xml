@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@color/forest_dark_green_bg"
     tools:context=".ui.GameFragment">
 
     <TextView
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/forest_text_light"
         android:textSize="24sp"
         tools:text="Current Turn: X" />
 
@@ -29,7 +30,7 @@
             android:id="@+id/player1_score"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
+            android:textColor="@color/forest_text_light"
             android:textSize="20sp"
             tools:text="Player 1 (X): 0" />
 
@@ -38,18 +39,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:textColor="@android:color/white"
+            android:textColor="@color/forest_text_light"
             android:textSize="20sp"
             tools:text="Player 2 (O): 0" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/board_grid"
+        android:id="@+id/game_grid"
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:background="@android:color/black">
+        android:background="@color/forest_dark_green_bg">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -68,7 +69,7 @@
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/white" />
+                android:background="@color/forest_light_green_accent" />
 
             <Button
                 android:id="@+id/cell2"
@@ -81,7 +82,7 @@
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/white" />
+                android:background="@color/forest_light_green_accent" />
 
             <Button
                 android:id="@+id/cell3"
@@ -95,7 +96,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/white" />
+            android:background="@color/forest_light_green_accent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -114,7 +115,7 @@
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/white" />
+                android:background="@color/forest_light_green_accent" />
 
             <Button
                 android:id="@+id/cell5"
@@ -127,7 +128,7 @@
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/white" />
+                android:background="@color/forest_light_green_accent" />
 
             <Button
                 android:id="@+id/cell6"
@@ -141,7 +142,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@android:color/white" />
+            android:background="@color/forest_light_green_accent" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,7 +161,7 @@
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/white" />
+                android:background="@color/forest_light_green_accent" />
 
             <Button
                 android:id="@+id/cell8"
@@ -168,12 +169,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android.textSize="48sp" />
+                android:textSize="48sp" />
 
             <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
-                android:background="@android:color/white" />
+                android:background="@color/forest_light_green_accent" />
 
             <Button
                 android:id="@+id/cell9"
@@ -189,23 +190,24 @@
         android:id="@+id/winner_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/board_grid"
+        android:layout_below="@id/game_grid"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/forest_text_light"
         android:textSize="24sp"
         android:visibility="gone"
         tools:text="Player X wins!" />
 
     <Button
         android:id="@+id/play_again_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
         android:layout_below="@id/winner_text"
         android:layout_centerHorizontal="true"
         android:text="Play Again"
         android:visibility="gone"
-        android:backgroundTint="@android:color/holo_red_dark" />
+        app:backgroundTint="@color/forest_light_green_accent" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -217,18 +219,20 @@
 
         <Button
             android:id="@+id/new_game_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:text="New Game"
-            android:backgroundTint="@android:color/holo_red_dark" />
+            app:backgroundTint="@color/forest_light_green_accent" />
 
         <Button
             android:id="@+id/exit_game_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
             android:layout_marginStart="16dp"
             android:text="Exit Game"
-            android:backgroundTint="@android:color/holo_red_dark" />
+            app:backgroundTint="@color/forest_light_green_accent" />
     </LinearLayout>
 
 </RelativeLayout>
