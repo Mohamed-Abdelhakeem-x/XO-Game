@@ -9,9 +9,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.xogame.databinding.FragmentScoreboardBinding
 
-// Corrected import
-import com.example.xogame.ui.GameViewModel
-
 class ScoreboardFragment : Fragment() {
     private var _binding: FragmentScoreboardBinding? = null
     private val binding get() = _binding!!
@@ -29,11 +26,11 @@ class ScoreboardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.totalPlayer1Score.observe(viewLifecycleOwner) { score ->
+        viewModel.totalScoreX.observe(viewLifecycleOwner) { score ->
             binding.player1Score.text = "Player 1 (X): $score"
         }
 
-        viewModel.totalPlayer2Score.observe(viewLifecycleOwner) { score ->
+        viewModel.totalScoreO.observe(viewLifecycleOwner) { score ->
             binding.player2Score.text = "Player 2 (O): $score"
         }
 

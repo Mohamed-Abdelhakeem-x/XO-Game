@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@color/noir_background"
     android:padding="16dp"
     tools:context=".ui.ScoreboardFragment">
 
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Scoreboard"
-        android:textColor="@android:color/white"
+        android:textColor="@color/noir_text"
         android:textSize="32sp"
         android:layout_centerHorizontal="true"/>
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/scoreboard_title"
         android:layout_marginTop="16dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/noir_text"
         android:textSize="24sp"
         tools:text="Player 1 (X): 0" />
 
@@ -32,17 +32,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/player1_score"
         android:layout_marginTop="8dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/noir_text"
         android:textSize="24sp"
         tools:text="Player 2 (O): 0" />
 
     <Button
         android:id="@+id/back_button"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Back"
-        android:backgroundTint="@android:color/holo_red_dark"/>
+        android:backgroundTint="@color/neon_green_accent"/>
 
 </RelativeLayout>

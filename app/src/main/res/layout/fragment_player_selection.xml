@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@android:color/black"
+    android:background="@color/noir_background"
     tools:context=".ui.PlayerSelectionFragment">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose your side"
-        android:textColor="@android:color/white"
+        android:textColor="@color/noir_text"
         android:textSize="24sp"/>
 
     <LinearLayout
@@ -24,18 +24,20 @@
 
         <Button
             android:id="@+id/player1_button"
-            android:layout_width="wrap_content"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Player 1 (X)"
-            android:backgroundTint="@android:color/holo_red_dark"/>
+            android:backgroundTint="@color/neon_green_accent"/>
 
         <Button
             android:id="@+id/player2_button"
-            android:layout_width="wrap_content"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:text="Player 2 (O)"
             android:layout_marginStart="16dp"
-            android:backgroundTint="@android:color/holo_red_dark"/>
+            android:backgroundTint="@color/neon_green_accent"/>
 
     </LinearLayout>
 
