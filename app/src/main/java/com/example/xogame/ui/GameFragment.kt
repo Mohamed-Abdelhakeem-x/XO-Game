@@ -4,15 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.xogame.R
 import com.example.xogame.databinding.FragmentGameBinding
-
-// Corrected import
-import com.example.xogame.ui.GameViewModel
 
 class GameFragment : Fragment() {
 
@@ -33,29 +31,29 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.setStartingPlayer(args.startPlayer)
+        viewModel.assignStartingPlayer(args.startPlayer)
 
-        viewModel.board.observe(viewLifecycleOwner) { board ->
-            updateBoard(board)
+        viewModel.gridState.observe(viewLifecycleOwner) { grid ->
+            updateGridUI(grid)
         }
 
-        viewModel.sessionPlayer1Score.observe(viewLifecycleOwner) { score ->
+        viewModel.roundScoreX.observe(viewLifecycleOwner) { score ->
             binding.player1Score.text = "Player 1 (X): $score"
         }
 
-        viewModel.sessionPlayer2Score.observe(viewLifecycleOwner) { score ->
+        viewModel.roundScoreO.observe(viewLifecycleOwner) { score ->
             binding.player2Score.text = "Player 2 (O): $score"
         }
 
-        viewModel.currentPlayer.observe(viewLifecycleOwner) { player ->
+        viewModel.activeTurn.observe(viewLifecycleOwner) { player ->
             binding.turnText.text = "Current Turn: $player"
         }
 
-        viewModel.winner.observe(viewLifecycleOwner) { winner ->
-            if (winner?.isNotEmpty() == true) {
+        viewModel.roundOutcome.observe(viewLifecycleOwner) { outcome ->
+            if (outcome?.isNotEmpty() == true) {
                 binding.winnerText.visibility = View.VISIBLE
                 binding.playAgainButton.visibility = View.VISIBLE
-                binding.winnerText.text = if (winner == "Tie") "It's a tie!" else "Player $winner wins!"
+                binding.winnerText.text = if (outcome == "Tie") "It's a tie!" else "Player $outcome wins!"
             } else {
                 binding.winnerText.visibility = View.GONE
                 binding.playAgainButton.visibility = View.GONE
@@ -63,43 +61,43 @@ class GameFragment : Fragment() {
         }
 
         binding.playAgainButton.setOnClickListener {
-            viewModel.resetGame()
+            viewModel.initiateNextRound()
         }
 
         binding.newGameButton.setOnClickListener {
-            viewModel.newGame()
+            viewModel.startNewGameSession()
         }
 
         binding.exitGameButton.setOnClickListener {
             findNavController().navigate(R.id.action_gameFragment_to_menuFragment)
         }
 
-        val boardButtons = listOf(
+        val gridCells = listOf(
             binding.cell1, binding.cell2, binding.cell3,
             binding.cell4, binding.cell5, binding.cell6,
             binding.cell7, binding.cell8, binding.cell9
         )
 
-        boardButtons.forEachIndexed { index, button ->
+        gridCells.forEachIndexed { index, button ->
             button.setOnClickListener {
-                viewModel.onCellClicked(index)
+                viewModel.handleCellSelection(index)
             }
         }
     }
 
-    private fun updateBoard(board: List<String>) {
-        val boardButtons = listOf(
+    private fun updateGridUI(grid: List<String>) {
+        val gridCells = listOf(
             binding.cell1, binding.cell2, binding.cell3,
             binding.cell4, binding.cell5, binding.cell6,
             binding.cell7, binding.cell8, binding.cell9
         )
-        board.forEachIndexed { index, cellValue ->
-            val button = boardButtons[index]
+        grid.forEachIndexed { index, cellValue ->
+            val button = gridCells[index]
             button.text = cellValue
             when(cellValue){
-                "X" -> button.setTextColor(resources.getColor(android.R.color.holo_red_dark, null))
-                "O" -> button.setTextColor(resources.getColor(android.R.color.holo_blue_dark, null))
-                else -> button.setTextColor(resources.getColor(android.R.color.black, null))
+                "X" -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.x_magenta))
+                "O" -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.o_cyan))
+                else -> button.setTextColor(ContextCompat.getColor(requireContext(), R.color.noir_background))
             }
         }
     }

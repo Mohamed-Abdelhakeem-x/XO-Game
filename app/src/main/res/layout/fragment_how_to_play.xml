@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/black"
+    android:background="@color/noir_background"
     android:padding="16dp"
     tools:context=".ui.HowToPlayFragment">
 
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="How to Play"
-        android:textColor="@android:color/white"
+        android:textColor="@color/noir_text"
         android:textSize="32sp"
         android:layout_centerHorizontal="true"/>
 
@@ -23,16 +23,17 @@
         android:layout_below="@id/how_to_play_title"
         android:layout_marginTop="16dp"
         android:text="1. The game is played on a grid that's 3 squares by 3 squares.\n\n2. You are X, your friend is O. Players take turns putting their marks in empty squares.\n\n3. The first player to get 3 of her marks in a row (up, down, across, or diagonally) is the winner.\n\n4. When all 9 squares are full, the game is over. If no player has 3 marks in a row, the game ends in a tie."
-        android:textColor="@android:color/white"
+        android:textColor="@color/noir_text"
         android:textSize="18sp" />
 
     <Button
         android:id="@+id/back_button"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:text="Back"
-        android:backgroundTint="@android:color/holo_red_dark"/>
+        android:backgroundTint="@color/neon_green_accent"/>
 
 </RelativeLayout>
